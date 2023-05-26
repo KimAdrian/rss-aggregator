@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/go-chi/chi"
+	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 	"log"
 	"net/http"
@@ -22,6 +23,24 @@ func main() {
 	//setup chi router object
 	router := chi.NewRouter()
 
+	//Add cors configuration
+	//Enable users to make requests from a browser
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"*"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300,
+	}))
+
+	//
+	v1Router := chi.NewRouter()
+	v1Router.Get("/ready", handlerReadiness)
+	v1Router.Get("/error", handlerErr)
+
+	router.Mount("/v1", v1Router)
+
 	httpServer := &http.Server{
 		Handler: router,
 		Addr:    ":" + port,
@@ -29,9 +48,9 @@ func main() {
 
 	//Start server and handle http requests
 	log.Printf("Server starting on port: %v", port)
-	httpError := httpServer.ListenAndServe()
-	if httpError != nil {
-		log.Println(httpError)
+	httpServerError := httpServer.ListenAndServe()
+	if httpServerError != nil {
+		log.Println(httpServerError)
 		return
 	}
 }
