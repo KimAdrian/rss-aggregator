@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 type apiConfig struct {
@@ -42,9 +43,13 @@ func main() {
 		log.Fatalf("Can't connect to database: %v\n", err)
 	}
 
+	db := database.New(conn)
 	apiCfg := apiConfig{
-		DB: database.New(conn),
+		DB: db,
 	}
+
+	//launch startScraping() in a separate goroutine
+	go startScraping(db, 10, time.Minute)
 
 	//setup chi router object
 	router := chi.NewRouter()
