@@ -1,4 +1,4 @@
-![Build](https://github.com/KimAdrian/rss-aggregator/blob/main/.github/workflows/go_build_and_test.yml/badge.svg)
+![Build](https://github.com/KimAdrian/rss-aggregator/actions/workflows/go_build_and_test.yml/badge.svg)
 <p align="center">
 <img src="images/gopher.png" height="250px" alt="Gopher image">
 </p>
