@@ -10,6 +10,8 @@
 - [go-chi/cors](https://github.com/go-chi/cors) : CORS net/http middleware for Go
 - [godotenv](https://github.com/joho/godotenv) : Loads environment variables from .env files
 - [pq](https://github.com/lib/pq) : Pure Go Postgres driver for database/sql
+- [sqlc](https://github.com/kyleconroy/sqlc) : Generate fully type-safe idiomatic code from SQL
+- [goose](https://github.com/pressly/goose) : A database migration tool. Supports SQL migrations and Go functions.
 
 ### Entity Relation Diagram
 <img src="images/rss_agg ERD.png">
